@@ -1,0 +1,151 @@
+/* Diary Demonstration */
+
+main {
+    /* Style rules to the diary container  */
+    display: grid;
+    grid-gap: 1rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+section {
+    /* To make sizing easier, include borders or padding in width */
+    box-sizing: border-box;
+    box-shadow:  0.5rem 0.5rem 0.3rem #cacaca, -0.5rem -0.5rem 0.3rem #f6f6f6;
+
+    /* Limit on entry widths */
+    max-width: 28rem;
+    min-height: fit-content;
+}
+
+section.entry {
+    background-color: #f0f07e;
+
+
+    /* This allows us to position each delete button */
+    position: relative;
+    /* Set a limit on entry height */
+    min-height: 5rem;
+}
+
+/* Style every second entry differently */
+section.entry:nth-child(2n) {
+    background-color: #e5a3e7;
+    
+
+}
+
+/* Style every fourth entry differently */
+section.entry:nth-child(4n) {
+    background-color: #afaff0;
+
+}
+
+section.entry button {
+    /* Fix size of delete buttons */
+    height: 1.5rem;
+    width: 1.5rem;
+    /* Position delete buttons to the top-right of their container */
+    position: absolute;
+    top: 0;
+    right: 0;
+    /* Fade out delete buttons when not using them */
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+section.entry:hover button,
+section.entry button:focus {
+    /* Fade in delete buttons when you hover over an entry 
+     or focus on a button */
+    opacity: 1;
+}
+
+section.entry textarea {
+    font-family: sans-serif;
+    background-color: transparent;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    /* To make sizing easier, includes borders */
+    box-sizing: border-box;
+    border-radius: 3px;
+    
+    /* Allow scrolling using keyboard only */
+    overflow: hidden;
+}
+
+/* Make image entries responsive */
+section.entry img {
+    width: 100%;
+    height: auto;
+}
+
+@media screen and (pointer: coarse) {
+    /* No fade delete button on touch screen (no hover) */
+    section.entry button {
+        opacity: 1;
+    }
+
+    section.entry textarea {
+        /* Stop text area going behind delete button if not faded */
+        padding-right: 1.5rem;
+        /* Allow scrolling with finger */
+        overflow: scroll;
+    }
+}
+
+section.button button {
+    /* Make Add entry and Add photo buttons fill their container */
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* Hide the image file input  */
+section#image input {
+    display: none;
+}
+
+/* Style page heading */
+h1 {
+    font-size: 1.4rem;
+    /* Reduce gap before/after headings to make things a bit neater */
+    margin: 0.25rem 0;
+}
+
+
+@media screen and (min-width: 75rem) {
+    main {
+        /* 6 evenly spaced columns for bigger screens */
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr ;
+    }
+}
+
+@media screen and (min-width: 100rem) {
+    main {
+        /* 8 evenly spaced columns for huge screens*/
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 54rem) {
+    main {
+        /* Three evenly spaced columns for small laptops or ipad pro*/
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 52rem) {
+    main {
+        /* Two evenly spaced columns for tablets*/
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 31rem) {
+    main {
+        /* One column for mobile phones*/
+        grid-template-columns: 1fr;
+    }
+}
