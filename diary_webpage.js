@@ -108,14 +108,15 @@ function addTextEntry(itemKey, initialText, isNewEntry) {
         });
 
         // Save the text entry:
+        var textElement = this;
+        var itemKey = "diary" + Date.now();
+        var entryText = textElement.value;
+
+        makeDiaryItem("text", entryText);
+        localStorage.setItem(itemKey, makeDiaryItem("text", entryText));
         // Get the textarea element's current value,make a text item using the value,store the item in local storage using the given key
         
-        initialText = "";
-        isNewEntry = true;
-        textElement = document.getElementById("#textarea");
-        makeDiaryItem("text", textElement.value);
-        itemKey = "diary" + Date.now();
-        localStorage.setItem(itemKey, textElement);
+        
     }
 
     
@@ -171,6 +172,8 @@ function processFile(changeEvent) {
         changeEvent,
     });
 
+    let file = changeEvent.target.files[0];
+
     // Create a function to add an image entry using a data URL
     function addImage(dataUrl) {
         console.log("addImage called with arguments:", {
@@ -180,28 +183,14 @@ function processFile(changeEvent) {
         // Add a new image entry, using the current timestamp to make a key
         var itemKey = "diary" + Date.now();
         addImageEntry(itemKey, dataUrl);
-
-        
-        // Make an image item using the given url
-        var data = dataUrl.target.result;
-        // Store the item in local storage using the given key
-        
-        
-        
-    
-      
-
-        
     }
-
-    
- 
     // read a file when it is selected:
-    // (reading files into a data URL using FileReader is demonstrated in Block 3 Part 4)
-    
     var reader = new FileReader();
-    reader.readAsDataURL(dataUrl);
-    addImage(data);
+    reader.onload = function (event) {
+        var dataUrl = event.target.result;
+        addImage(dataUrl);  
+    }
+    reader.readAsDataURL(file);
     // Clear the file selection (allows selecting the same file again)
     changeEvent.target.value = "";
 }
